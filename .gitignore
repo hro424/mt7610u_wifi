@@ -1,0 +1,8 @@
+*.o
+.*.cmd
+os/linux/.tmp_versions/
+os/linux/Makefile
+os/linux/Module.symvers
+os/linux/modules.order
+*.ko
+*.mod.c
