@@ -32,7 +32,8 @@ include $(RT28xx_DIR)/os/linux/config.mk
 RTMP_SRC_DIR = $(RT28xx_DIR)/RT$(MODULE)
 
 #PLATFORM: Target platform
-PLATFORM = PC
+PLATFORM = BBB
+#PLATFORM = PC
 #PLATFORM = 5VT
 #PLATFORM = IKANOS_V160
 #PLATFORM = IKANOS_V180
@@ -192,6 +193,11 @@ endif
 ifeq ($(PLATFORM),BLPMP)
 LINUX_SRC = /home/sample/Customers/BroadLight/UBB/pmp16/bl234x-linux-2.6.21-small-v30.2
 CROSS_COMPILE = mips-wrs-linux-gnu-
+endif
+
+ifeq ($(PLATFORM),BBB)
+LINUX_SRC = $(HOME)/src/bbb/bb-kernel/KERNEL
+CROSS_COMPILE = arm-linux-gnueabihf-
 endif
 
 ifeq ($(PLATFORM),PC)
@@ -397,7 +403,11 @@ else
 ifeq ($(PLATFORM),FREESCALE8377)
 	$(MAKE) ARCH=powerpc CROSS_COMPILE=$(CROSS_COMPILE) -C  $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
 else
+ifeq ($(PLATFORM),BBB)
+	$(MAKE) ARCH=arm CROSS_COMPILE=$(CROSS_COMPILE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
+else
 	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
+endif
 endif
 endif
 

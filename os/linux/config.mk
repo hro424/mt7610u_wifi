@@ -23,12 +23,12 @@ HAS_APCLI=n
 
 # Support Wpa_Supplicant
 # i.e. wpa_supplicant -Dralink
-HAS_WPA_SUPPLICANT=n
+HAS_WPA_SUPPLICANT=y
 
 
 # Support Native WpaSupplicant for Network Maganger
 # i.e. wpa_supplicant -Dwext
-HAS_NATIVE_WPA_SUPPLICANT_SUPPORT=n
+HAS_NATIVE_WPA_SUPPLICANT_SUPPORT=y
 
 #Support Net interface block while Tx-Sw queue full
 HAS_BLOCK_NET_IF=n
@@ -1029,6 +1029,10 @@ endif
 ifeq ($(PLATFORM),ST)
 CFLAGS := -D__KERNEL__ -I$(LINUX_SRC)/include -Wall -O2 -Wundef -Wstrict-prototypes -Wno-trigraphs -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-aliasing -fno-common -fomit-frame-pointer -ffreestanding -m4-nofpu -o $(WFLAGS) 
 export CFLAGS
+endif
+
+ifeq ($(PLATFORM),BBB)
+EXTRA_CFLAGS := $(WFLAGS)
 endif
 
 ifeq ($(PLATFORM),PC)
